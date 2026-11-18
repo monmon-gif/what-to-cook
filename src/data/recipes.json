@@ -1,0 +1,205 @@
+[
+  {
+    "id": "recipe-001",
+    "name": "豚キムチ丼",
+    "category": "ごはん系",
+    "status": "作ったことあり",
+    "cookingTime": 15,
+    "tags": [
+      "がっつり",
+      "簡単"
+    ],
+    "ingredients": [
+      "豚肉",
+      "キムチ",
+      "ごはん"
+    ],
+    "memo": "仕上げに温泉卵をのせてもおいしい。"
+  },
+  {
+    "id": "recipe-002",
+    "name": "月見そば",
+    "category": "麺系",
+    "status": "作ったことあり",
+    "cookingTime": 10,
+    "tags": [
+      "簡単",
+      "あっさり"
+    ],
+    "ingredients": [
+      "そば",
+      "卵",
+      "ネギ"
+    ]
+  },
+  {
+    "id": "recipe-003",
+    "name": "照り焼きチキン",
+    "category": "おかず",
+    "status": "作ったことあり",
+    "cookingTime": 25,
+    "tags": [
+      "がっつり",
+      "定番"
+    ],
+    "ingredients": [
+      "鶏もも肉",
+      "しょうゆ",
+      "みりん",
+      "砂糖"
+    ]
+  },
+  {
+    "id": "recipe-004",
+    "name": "豆腐とわかめのみそ汁",
+    "category": "汁物",
+    "status": "作ったことあり",
+    "cookingTime": 10,
+    "tags": [
+      "簡単",
+      "節約",
+      "定番"
+    ],
+    "ingredients": [
+      "豆腐",
+      "わかめ",
+      "だし",
+      "みそ"
+    ]
+  },
+  {
+    "id": "recipe-005",
+    "name": "ツナと大葉のパスタ",
+    "category": "麺系",
+    "status": "作ってみたい",
+    "cookingTime": 20,
+    "tags": [
+      "簡単",
+      "あっさり",
+      "節約"
+    ],
+    "ingredients": [
+      "スパゲッティ",
+      "ツナ",
+      "大葉",
+      "しょうゆ"
+    ]
+  },
+  {
+    "id": "recipe-006",
+    "name": "キーマカレー",
+    "category": "ごはん系",
+    "status": "作ってみたい",
+    "cookingTime": 35,
+    "tags": [
+      "がっつり",
+      "定番"
+    ],
+    "ingredients": [
+      "合いびき肉",
+      "玉ねぎ",
+      "トマト缶",
+      "カレー粉",
+      "ごはん"
+    ]
+  },
+  {
+    "id": "recipe-007",
+    "name": "きのこのホイル焼き",
+    "category": "おかず",
+    "status": "作ったことあり",
+    "cookingTime": 20,
+    "tags": [
+      "簡単",
+      "あっさり"
+    ],
+    "ingredients": [
+      "しめじ",
+      "えのき",
+      "バター",
+      "ポン酢"
+    ]
+  },
+  {
+    "id": "recipe-008",
+    "name": "トマトと卵のスープ",
+    "category": "汁物",
+    "status": "作ってみたい",
+    "cookingTime": 15,
+    "tags": [
+      "簡単",
+      "あっさり",
+      "節約"
+    ],
+    "ingredients": [
+      "トマト",
+      "卵",
+      "鶏ガラスープの素"
+    ]
+  },
+  {
+    "id": "recipe-009",
+    "name": "じゃがいものガレット",
+    "category": "その他",
+    "status": "作ってみたい",
+    "cookingTime": 25,
+    "tags": [
+      "節約"
+    ],
+    "ingredients": [
+      "じゃがいも",
+      "チーズ",
+      "オリーブオイル"
+    ]
+  },
+  {
+    "id": "recipe-010",
+    "name": "卵チャーハン",
+    "category": "ごはん系",
+    "status": "作ったことあり",
+    "cookingTime": 10,
+    "tags": [
+      "簡単",
+      "節約",
+      "定番"
+    ],
+    "ingredients": [
+      "ごはん",
+      "卵",
+      "ネギ"
+    ]
+  },
+  {
+    "id": "recipe-011",
+    "name": "野菜たっぷり焼きうどん",
+    "category": "麺系",
+    "status": "作ったことあり",
+    "cookingTime": 20,
+    "tags": [
+      "簡単",
+      "がっつり"
+    ],
+    "ingredients": [
+      "うどん",
+      "豚肉",
+      "キャベツ",
+      "にんじん"
+    ]
+  },
+  {
+    "id": "recipe-012",
+    "name": "サーモンのマリネ",
+    "category": "その他",
+    "status": "作ってみたい",
+    "cookingTime": 45,
+    "tags": [
+      "あっさり"
+    ],
+    "ingredients": [
+      "サーモン",
+      "玉ねぎ",
+      "レモン",
+      "オリーブオイル"
+    ]
+  }
+]
