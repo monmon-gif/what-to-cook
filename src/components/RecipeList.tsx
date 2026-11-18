@@ -2,12 +2,13 @@
 
 import { Heart, Search } from "lucide-react";
 import { useState } from "react";
-import { filterRecipes, initialFilters, recipes } from "@/lib/recipes";
+import { filterRecipes, initialFilters } from "@/lib/recipes";
+import type { Recipe } from "@/types/recipe";
 import { useFavorites } from "@/lib/storage";
 import { RecipeCard } from "./RecipeCard";
 import { RecipeFilters } from "./RecipeFilters";
 
-export function RecipeList() {
+export function RecipeList({ recipes }: { recipes: Recipe[] }) {
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState(initialFilters);
   const [favoritesOnly, setFavoritesOnly] = useState(false);

@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { CalendarDays, History, Shuffle } from "lucide-react";
 import { useHistory } from "@/lib/storage";
-import { recipes } from "@/lib/recipes";
 
-export function CookingHistory() {
+export function CookingHistory({ recipeIds }: { recipeIds: string[] }) {
   const history = useHistory();
   if (history.length === 0) {
     return (
@@ -22,7 +21,7 @@ export function CookingHistory() {
     <ul className="panel history-list">
       {[...history].sort((a, b) => b.date.localeCompare(a.date)).map((entry) => (
         <li key={`${entry.recipeId}:${entry.date}`}>
-          {recipes.some((recipe) => recipe.id === entry.recipeId)
+          {recipeIds.includes(entry.recipeId)
             ? <Link href={`/recipes/${entry.recipeId}`}>{entry.name}</Link>
             : <span>{entry.name}</span>}
           <time dateTime={entry.date}><CalendarDays size={16} aria-hidden="true" />{entry.date.replaceAll("-", "/")}</time>

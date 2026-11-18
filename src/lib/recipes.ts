@@ -1,11 +1,14 @@
-import data from "@/data/recipes.json";
 import { categories, statuses, tags, type Filters, type Recipe, type Tag } from "@/types/recipe";
 
 function includes<T extends string>(values: readonly T[], value: string): value is T {
   return (values as readonly string[]).includes(value);
 }
 
-export const recipes: Recipe[] = data.map((item) => {
+export function validateRecipe(item: Omit<Recipe, "category" | "status" | "tags"> & {
+  category: string;
+  status: string | null;
+  tags: readonly string[];
+}): Recipe {
   const { category, status } = item;
   const recipeTags: readonly string[] = item.tags;
   const validatedTags = recipeTags.filter((tag): tag is Tag => includes(tags, tag));
@@ -13,7 +16,7 @@ export const recipes: Recipe[] = data.map((item) => {
     throw new Error(`料理データの分類が無効です (${item.id})`);
   }
   return { ...item, category, status, tags: validatedTags };
-});
+}
 
 export const initialFilters: Filters = { category: "", status: "", maxTime: null, tags: [] };
 

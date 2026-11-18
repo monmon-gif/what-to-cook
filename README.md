@@ -15,15 +15,27 @@ npm run dev
 
 ## 料理データを編集する
 
-`src/data/recipes.json` で料理を追加・更新・削除します。各料理には一意で安定した `id` を割り当ててください。お気に入りおよび調理履歴はこの ID を参照します。分類とタグの候補は `src/types/recipe.ts` に定義されています。
+Supabase 接続後は、ダッシュボードの **Table Editor → recipes** で料理を追加・更新・削除します。新規行の `id` は自動で割り当てられます。お気に入りと履歴はこの ID を参照するので、既存行の ID は変更しないでください。外食の `status` と `cooking_time` は空欄（NULL）にできます。分類とタグの候補は `src/types/recipe.ts` に定義されています。接続未設定の環境では `src/data/recipes.json` が使われます。
 
-料理写真を使う場合は `public/images/` に保存し、JSON の `image` に `/images/ファイル名.jpg` を指定します。画像の省略時と読み込み失敗時はジャンルに応じたアイコンが表示されます。`ingredients`、`memo`、`recipeUrl` は省略できます。参考レシピURLには http または https のURLを指定してください。
+料理写真を使う場合は `public/images/` に保存し、`image` に `/images/ファイル名.jpg` を指定します。画像の省略時と読み込み失敗時はジャンルに応じたアイコンが表示されます。`ingredients`、`memo`、`recipe_url`（JSON では `recipeUrl`）は空欄にできます。参考レシピURLには http または https のURLを指定してください。
+
+## Supabase を設定する
+
+1. プロジェクトの **SQL Editor → New query** で `supabase/setup.sql` の全文を実行します。料理テーブルと読み取り専用ポリシーを作成し、既存料理を投入します。
+2. **Connect** で Project URL と Publishable key を取得し、ローカルの `.env.local` と Vercel の **Settings → Environment Variables** に設定します。
+
+   ```dotenv
+   NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+   ```
+
+3. この変更を `main` に反映してデプロイします。環境変数を後から設定した場合は再デプロイします。以降は Table Editor の料理変更が次のページ読み込みに反映されます。
 
 複数のタグを選ぶと、選んだタグをすべて含む料理を抽選します。お気に入りと履歴はブラウザごとの localStorage に保存します。「今日作った」はブラウザの現地日付で、同じ料理につき1日1件を記録します。
 
 ## Vercel へ公開する
 
-このディレクトリを GitHub のリポジトリに反映します。Vercel で **Add New → Project** を選び、そのリポジトリをインポートします。フレームワークは **Next.js**、Root Directory はこの `package.json` があるディレクトリを指定します。環境変数の設定は不要です。個人の非商用用途では Vercel の Hobby プランを利用できます。
+このディレクトリを GitHub のリポジトリに反映します。Vercel で **Add New → Project** を選び、そのリポジトリをインポートします。フレームワークは **Next.js**、Root Directory はこの `package.json` があるディレクトリを指定します。個人の非商用用途では Vercel の Hobby プランを利用できます。
 
 ## 確認手順
 

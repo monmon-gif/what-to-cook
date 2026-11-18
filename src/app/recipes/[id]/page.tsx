@@ -5,22 +5,18 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { RecipeImage } from "@/components/RecipeImage";
 import { RecipeMeta } from "@/components/RecipeMeta";
-import { recipes } from "@/lib/recipes";
+import { getRecipe } from "@/lib/recipe-data";
 
 type Props = { params: Promise<{ id: string }> };
 
-export function generateStaticParams() {
-  return recipes.map(({ id }) => ({ id }));
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  return { title: recipes.find((recipe) => recipe.id === id)?.name ?? "料理が見つかりません" };
+  return { title: (await getRecipe(id))?.name ?? "料理が見つかりません" };
 }
 
 export default async function RecipePage({ params }: Props) {
   const { id } = await params;
-  const recipe = recipes.find((item) => item.id === id);
+  const recipe = await getRecipe(id);
   if (!recipe) notFound();
   const url = recipe.recipeUrl?.trim();
 

@@ -2,7 +2,7 @@
 
 import { CookingPot, Settings2, Shuffle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { filterRecipes, initialFilters, recipes } from "@/lib/recipes";
+import { filterRecipes, initialFilters } from "@/lib/recipes";
 import { draw, spinDuration } from "@/lib/roulette";
 import type { Filters, Recipe } from "@/types/recipe";
 import { RecipeFilters } from "./RecipeFilters";
@@ -10,7 +10,7 @@ import { RecipeResult } from "./RecipeResult";
 
 const palette = ["#22604a", "#d4e9bd", "#f9d98f", "#548a6d", "#e7ad83", "#b9d9ca"];
 
-export function Roulette() {
+export function Roulette({ recipes }: { recipes: Recipe[] }) {
   const [filters, setFilters] = useState(initialFilters);
   const [angle, setAngle] = useState(0);
   const [spinning, setSpinning] = useState(false);
