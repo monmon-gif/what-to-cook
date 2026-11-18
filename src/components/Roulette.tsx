@@ -18,6 +18,7 @@ export function Roulette() {
   const timer = useRef<number | null>(null);
   const pending = useRef<Recipe | null>(null);
   const resultRegion = useRef<HTMLHeadingElement>(null);
+  const wheelRegion = useRef<HTMLDivElement>(null);
   const candidates = filterRecipes(recipes, filters);
 
   useEffect(() => () => {
@@ -47,6 +48,10 @@ export function Roulette() {
     setSpinning(true);
     setAngle(selection.angle);
     timer.current = window.setTimeout(finishSpin, reduced ? 0 : spinDuration + 200);
+
+    if (window.matchMedia("(max-width: 690px)").matches) {
+      wheelRegion.current?.scrollIntoView({ block: "start", behavior: reduced ? "instant" : "smooth" });
+    }
   }
 
   function finishSpin() {
@@ -75,7 +80,9 @@ export function Roulette() {
       <section className="panel stage" aria-label="献立ルーレット">
         {candidates.length ? (
           <>
-            <Wheel candidates={candidates} angle={angle} spinning={spinning} onStop={finishSpin} />
+            <div className="wheel-region" ref={wheelRegion}>
+              <Wheel candidates={candidates} angle={angle} spinning={spinning} onStop={finishSpin} />
+            </div>
             <details className="candidate-list">
               <summary>抽選対象の料理（{candidates.length}件）</summary>
               <ol>{candidates.map((recipe) => <li key={recipe.id}>{recipe.name}</li>)}</ol>
