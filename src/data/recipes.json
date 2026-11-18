@@ -238,5 +238,13 @@
       "ケチャップ"
     ],
     "memo": "卵に少し牛乳を入れる"
+  },
+  {
+    "id": "recipe-015",
+    "name": "はま寿司",
+    "category": "外食",
+    "status": null,
+    "cookingTime": null,
+    "tags": []
   }
 ]

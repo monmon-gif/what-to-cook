@@ -1,4 +1,4 @@
-export const categories = ["ごはん系", "麺系", "おかず", "汁物", "その他"] as const;
+export const categories = ["ごはん系", "麺系", "おかず", "汁物", "その他", "外食"] as const;
 export const statuses = ["作ったことあり", "作ってみたい"] as const;
 export const tags = ["簡単", "がっつり", "あっさり", "節約", "定番"] as const;
 
@@ -10,8 +10,8 @@ export interface Recipe {
   id: string;
   name: string;
   category: Category;
-  status: Status;
-  cookingTime: number;
+  status: Status | null;
+  cookingTime: number | null;
   tags: Tag[];
   image?: string;
   ingredients?: string[];

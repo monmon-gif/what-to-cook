@@ -6,8 +6,8 @@ export function RecipeMeta({ recipe }: { recipe: Recipe }) {
     <>
       <div className="meta">
         <span className="category">{recipe.category}</span>
-        <span className="time"><Clock3 size={15} aria-hidden="true" />{recipe.cookingTime}分</span>
-        <span>{recipe.status}</span>
+        {recipe.cookingTime !== null && <span className="time"><Clock3 size={15} aria-hidden="true" />{recipe.cookingTime}分</span>}
+        {recipe.status && <span>{recipe.status}</span>}
       </div>
       {recipe.tags.length > 0 && (
         <ul className="tags" aria-label="タグ">

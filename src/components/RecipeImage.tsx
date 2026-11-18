@@ -11,6 +11,7 @@ const treatments = {
   おかず: { icon: Utensils, color: "side" },
   汁物: { icon: Soup, color: "soup" },
   その他: { icon: Utensils, color: "other" },
+  外食: { icon: Utensils, color: "other" },
 };
 
 export function RecipeImage({ recipe }: { recipe: Recipe }) {
