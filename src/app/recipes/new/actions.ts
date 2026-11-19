@@ -1,30 +1,34 @@
 "use server";
 
-import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { categories, statuses, tags } from "@/types/recipe";
+import { getRecipeAddCode, grantRecipeAddAccess, hasRecipeAddAccess, matchesCode } from "@/lib/recipe-add-access";
 
-function hash(value: string) {
-  return createHash("sha256").update(value).digest();
+export async function unlockRecipeAdd(_previous: string, form: FormData): Promise<string> {
+  const code = getRecipeAddCode();
+  if (!code) return "料理を追加するための設定が未完了です。";
+  const input = form.get("code");
+  if (typeof input !== "string" || input.length > 256 || !matchesCode(input.trim(), code)) {
+    return "登録コードを確認してください。";
+  }
+  await grantRecipeAddAccess(code);
+  redirect("/recipes/new");
 }
 
 export async function addRecipe(form: FormData): Promise<string> {
   const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const secretKey = process.env.SUPABASE_SECRET_KEY;
-  const addCode = process.env.RECIPE_ADD_CODE;
-  if (!projectUrl || !secretKey?.startsWith("sb_secret_") || !addCode || addCode.length < 16) {
+  if (!projectUrl || !secretKey?.startsWith("sb_secret_") || !getRecipeAddCode()) {
     return "料理を追加するための設定が未完了です。";
   }
+  if (!await hasRecipeAddAccess()) return "登録の有効期限が切れました。別のタブで登録を有効にしてから再試行してください。";
 
   const field = (name: string) => {
     const value = form.get(name);
     return typeof value === "string" ? value.trim() : "";
   };
-  if (!timingSafeEqual(hash(field("code")), hash(addCode))) {
-    return "登録コードを確認してください。";
-  }
-
   const name = field("name");
   const category = field("category");
   const status = field("status");
@@ -47,10 +51,6 @@ export async function addRecipe(form: FormData): Promise<string> {
     return "材料は1行100文字までで50件以内、メモは2000文字以内で入力してください。";
   }
 
-  const image = field("image");
-  if (image && (image.length > 250 || !/^\/images\/[^/\\?#%]+\.(avif|gif|jpe?g|png|webp)$/i.test(image))) {
-    return "画像は /images/ファイル名.jpg の形式で入力してください。";
-  }
   const recipeUrl = field("recipe_url");
   if (recipeUrl) {
     const url = URL.parse(recipeUrl);
@@ -67,7 +67,7 @@ export async function addRecipe(form: FormData): Promise<string> {
       body: JSON.stringify({
         id, name, category, status: status || null, cooking_time: time ? Number(time) : null,
         tags: recipeTags, ingredients: ingredients.length ? ingredients : null,
-        memo: memo || null, image: image || null, recipe_url: recipeUrl || null,
+        memo: memo || null, recipe_url: recipeUrl || null,
       }),
       signal: AbortSignal.timeout(8000),
     });

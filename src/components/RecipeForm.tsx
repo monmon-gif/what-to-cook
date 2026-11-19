@@ -39,38 +39,32 @@ export function RecipeForm() {
               {categories.map((category) => <option key={category}>{category}</option>)}
             </select>
           </label>
-          <label className="font-semibold">料理の状態
+          <label className="font-semibold">料理の状態（任意）
             <select name="status" defaultValue="">
               <option value="">未設定</option>
               {statuses.map((status) => <option key={status}>{status}</option>)}
             </select>
           </label>
         </div>
-        <label className="font-semibold">調理時間（分）
+        <label className="font-semibold">調理時間（分・任意）
           <input name="cooking_time" type="number" inputMode="numeric" min={0} max={1440} className={field} />
         </label>
         <fieldset>
-          <legend className="mb-2 font-semibold">タグ</legend>
+          <legend className="mb-2 font-semibold">タグ（任意）</legend>
           <div className="choices">
             {tags.map((tag) => (
               <label className="choice" key={tag}><input type="checkbox" name="tags" value={tag} /><span>{tag}</span></label>
             ))}
           </div>
         </fieldset>
-        <label className="font-semibold">材料（1行に1つ）
+        <label className="font-semibold">材料（任意・1行に1つ）
           <textarea name="ingredients" className={field} rows={4} maxLength={5100} />
         </label>
-        <label className="font-semibold">メモ
+        <label className="font-semibold">メモ（任意）
           <textarea name="memo" className={field} rows={3} maxLength={2000} />
         </label>
-        <label className="font-semibold">GitHubに置いた画像のパス
-          <input name="image" className={field} placeholder="/images/omurice.jpg" maxLength={250} />
-        </label>
-        <label className="font-semibold">参考レシピURL
+        <label className="font-semibold">参考レシピURL（任意）
           <input name="recipe_url" type="url" className={field} maxLength={2000} />
-        </label>
-        <label className="font-semibold">登録コード（必須）
-          <input name="code" type="password" className={field} required maxLength={256} autoComplete="off" />
         </label>
         <button className="primary w-full" type="submit">{pending ? "登録中…" : "料理を登録"}</button>
       </fieldset>

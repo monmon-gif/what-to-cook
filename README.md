@@ -35,7 +35,7 @@ Supabase 接続後は、アプリの **料理一覧 → 料理を追加** から
 
 既にテーブルを作成済みなら、SQL Editor で `grant insert on table public.recipes to service_role;` を実行します。Supabase の **Project Settings → API Keys** から `sb_secret_` で始まるキーを取得し、Vercel の本番環境変数に `SUPABASE_SECRET_KEY` として登録します。ローカルで追加を試す場合は `.env.local` にも設定します。
 
-登録用のランダムなコードを生成し、同じ環境で `RECIPE_ADD_CODE` に設定します。Node.js では `node -e "console.log(require('node:crypto').randomBytes(24).toString('base64url'))"` で生成できます。2つの値はサーバー側だけで使用します。コードは料理追加フォームで入力します。
+登録用のランダムなコードを生成し、同じ環境で `RECIPE_ADD_CODE` に設定します。Node.js では `node -e "console.log(require('node:crypto').randomBytes(24).toString('base64url'))"` で生成できます。2つの値はサーバー側だけで使用します。登録コードは料理の登録を有効にする画面で入力し、同じブラウザで30日間料理を追加できます。料理フォームの必須項目は料理名とジャンルです。写真を表示する場合は、GitHub に写真を置いた後で Table Editor の `image` にパスを設定します。
 
 複数のタグを選ぶと、選んだタグをすべて含む料理を抽選します。お気に入りと履歴はブラウザごとの localStorage に保存します。「今日作った」はブラウザの現地日付で、同じ料理につき1日1件を記録します。
 
