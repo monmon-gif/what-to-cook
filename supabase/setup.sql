@@ -16,6 +16,7 @@ create table if not exists public.recipes (
 alter table public.recipes enable row level security;
 revoke all privileges on table public.recipes from public, anon, authenticated;
 grant select on table public.recipes to anon, authenticated;
+grant insert on table public.recipes to service_role;
 drop policy if exists "Recipes are publicly readable" on public.recipes;
 create policy "Recipes are publicly readable"
   on public.recipes for select to anon, authenticated using (true);

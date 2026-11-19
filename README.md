@@ -15,7 +15,7 @@ npm run dev
 
 ## 料理データを編集する
 
-Supabase 接続後は、ダッシュボードの **Table Editor → recipes** で料理を追加・更新・削除します。新規行の `id` は自動で割り当てられます。お気に入りと履歴はこの ID を参照するので、既存行の ID は変更しないでください。外食の `status` と `cooking_time` は空欄（NULL）にできます。分類とタグの候補は `src/types/recipe.ts` に定義されています。接続未設定の環境では `src/data/recipes.json` が使われます。
+Supabase 接続後は、アプリの **料理一覧 → 料理を追加** から登録できます。更新・削除はダッシュボードの **Table Editor → recipes** で行います。新規行の `id` は自動で割り当てられます。お気に入りと履歴はこの ID を参照するので、既存行の ID は変更しないでください。外食の `status` と `cooking_time` は空欄（NULL）にできます。分類とタグの候補は `src/types/recipe.ts` に定義されています。接続未設定の環境では `src/data/recipes.json` が使われます。
 
 料理写真を使う場合は `public/images/` に保存し、`image` に `/images/ファイル名.jpg` を指定します。画像の省略時と読み込み失敗時はジャンルに応じたアイコンが表示されます。`ingredients`、`memo`、`recipe_url`（JSON では `recipeUrl`）は空欄にできます。参考レシピURLには http または https のURLを指定してください。
 
@@ -30,6 +30,12 @@ Supabase 接続後は、ダッシュボードの **Table Editor → recipes** �
    ```
 
 3. この変更を `main` に反映してデプロイします。環境変数を後から設定した場合は再デプロイします。以降は Table Editor の料理変更が次のページ読み込みに反映されます。
+
+### アプリから料理の追加を有効にする
+
+既にテーブルを作成済みなら、SQL Editor で `grant insert on table public.recipes to service_role;` を実行します。Supabase の **Project Settings → API Keys** から `sb_secret_` で始まるキーを取得し、Vercel の本番環境変数に `SUPABASE_SECRET_KEY` として登録します。ローカルで追加を試す場合は `.env.local` にも設定します。
+
+登録用のランダムなコードを生成し、同じ環境で `RECIPE_ADD_CODE` に設定します。Node.js では `node -e "console.log(require('node:crypto').randomBytes(24).toString('base64url'))"` で生成できます。2つの値はサーバー側だけで使用します。コードは料理追加フォームで入力します。
 
 複数のタグを選ぶと、選んだタグをすべて含む料理を抽選します。お気に入りと履歴はブラウザごとの localStorage に保存します。「今日作った」はブラウザの現地日付で、同じ料理につき1日1件を記録します。
 
